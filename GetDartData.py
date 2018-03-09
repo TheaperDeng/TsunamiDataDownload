@@ -28,7 +28,7 @@ def GetDartData(stationnum,earthquake):
                 Temp2=Temp.split(earthquake.date[0],1)[1].split(earthquake.date[0],1)[0]
             except IndexError as e:
                 break
-            Temp=Temp.split(earthquake.date[0],1)[1].split(earthquake.date[0],1)[1]
+            Temp=Temp.split(earthquake.date[0],1)[1]
             m=re.match(r'\s\d{2}\s\d{2}\s(\d{2})\s(\d{2})\s(\d{2})\s\d\s(\d{1,4}.\d{3})',Temp2)
             if m:
                 #print(m[1],m[2],m[3],m[4])
