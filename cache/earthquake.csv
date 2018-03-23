@@ -1,6 +1,6 @@
 time,latitude,longitude,depth,mag,magType,nst,gap,dmin,rms,net,id,updated,place,type,horizontalError,depthError,magError,magNst,status,locationSource,magSource
-2018-02-25T17:44:43.920Z,-6.0684,142.7678,23.39,7.5,mww,,17,5.47,1.31,us,us2000d7q6,2018-03-06T00:02:57.572Z,"81km SW of Porgera, Papua New Guinea",earthquake,3,3.5,0.039,63,reviewed,us,us
-2018-01-23T09:31:40.890Z,56.0039,-149.1658,14.06,7.9,mww,,30,2.585,0.77,us,us2000cmy3,2018-03-06T18:47:57.077Z,"280km SE of Kodiak, Alaska",earthquake,6,2.8,0.034,81,reviewed,us,us
+2018-02-25T17:44:43.920Z,-6.0684,142.7678,23.39,7.5,mww,,17,5.47,1.31,us,us2000d7q6,2018-03-16T22:04:18.922Z,"81km SW of Porgera, Papua New Guinea",earthquake,3,3.5,0.039,63,reviewed,us,us
+2018-01-23T09:31:40.890Z,56.0039,-149.1658,14.06,7.9,mww,,30,2.585,0.77,us,us2000cmy3,2018-03-15T08:39:47.088Z,"280km SE of Kodiak, Alaska",earthquake,6,2.8,0.034,81,reviewed,us,us
 2018-01-10T02:51:33.290Z,17.4825,-83.52,19,7.5,mww,,12,4.581,0.82,us,us1000c2zy,2018-02-26T03:26:51.709Z,"44km E of Great Swan Island, Honduras",earthquake,5.8,1.7,0.035,79,reviewed,us,us
-2017-09-08T04:49:19.180Z,15.0222,-93.8993,47.39,8.2,mww,,22,0.944,1.22,us,us2000ahv0,2018-03-04T17:29:46.801Z,"101km SSW of Tres Picos, Mexico",earthquake,6.2,3.7,0.058,29,reviewed,us,us
+2017-09-08T04:49:19.180Z,15.0222,-93.8993,47.39,8.2,mww,,22,0.944,1.22,us,us2000ahv0,2018-03-21T18:24:39.472Z,"101km SSW of Tres Picos, Mexico",earthquake,6.2,3.7,0.058,29,reviewed,us,us
 2017-07-17T23:34:13.740Z,54.4434,168.857,10,7.7,mww,,13,3.564,0.68,us,us20009x42,2017-10-11T01:03:51.040Z,"202km ESE of Nikol'skoye, Russia",earthquake,7,1.8,0.036,73,reviewed,us,us

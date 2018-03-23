@@ -19,7 +19,7 @@ def GetUsgsData(Earthquake_Settings):
     '''Get earthquake data from USGS under filter and save as csv file'''
     #Earthquake_Settings=Settings()
     url=GetUrlFromSettings(Earthquake_Settings)#get download url
-    print(url)
+    #print(url)
 
     if os.path.exists('./cache'):#new cache folder for now and future
         pass
@@ -40,7 +40,7 @@ def GetUsgsData(Earthquake_Settings):
             writer.writerow(row)
             
     c.close()#close the cache file
-    print('Done!')
+    print('USGS Download!')
     
 #Earthquake_Settings=Settings()
 #GetUsgsData(Earthquake_Settings)

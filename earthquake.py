@@ -9,7 +9,7 @@ class Earthquake():
         self.time_zero=['00','00','30']
         self.magnitude=0
         self.depth=0
-        self.epi=[0,0]
+        self.epi=[0,0]#long,lati
     def initfrom(self,filename,linenum):
         with open(filename) as f:
             reader=csv.reader(f)
@@ -22,9 +22,9 @@ class Earthquake():
                 self.depth=float(row[3])
                 self.epi=[float(row[2]),float(row[1])]
                 self.time_zero=[m[4],m[5],m[6]]
-                print(self.time_zero)
+                #print(self.time_zero)
             else:
                 pass
 
-earthquake=Earthquake()
-earthquake.initfrom('./cache/earthquake.csv',1)            
+#earthquake=Earthquake()
+#earthquake.initfrom('./cache/earthquake.csv',1)            

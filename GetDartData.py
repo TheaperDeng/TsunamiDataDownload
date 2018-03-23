@@ -14,13 +14,16 @@ def getdarturl(stationnum,earthquake):
 
 def GetDartData(stationnum,earthquake):
     url=getdarturl(stationnum,earthquake)
-    print(url)
+    #print(url)
     with request.urlopen(url) as f:
         data=f.read()
         #print('Data:',data.decode('utf-8'))
         data=data.decode('utf-8')
-        Temp=data.split('#yr  mo dy hr mn  s -      m')[1].split('</textarea></label></pre>',1)[0]
-        print(Temp)
+        try:
+            Temp=data.split('#yr  mo dy hr mn  s -      m')[1].split('</textarea></label></pre>',1)[0]
+        except IndexError as e:
+            return
+        #print(Temp)
         rela_time=[]
         height=[]
         while True:
@@ -38,7 +41,7 @@ def GetDartData(stationnum,earthquake):
                 height.append(height_temp)
             else:
                 break
-        print(rela_time,height)
+        #print(rela_time,height)
         if os.path.exists('./cache'):#new cache folder for now and future
             pass
         else:
@@ -51,8 +54,8 @@ def GetDartData(stationnum,earthquake):
             Temp=[rela_time,waterdepth]
             writer.writerow(Temp)
         c.close()
-        print('Done!')
+        print(stationnum, 'Dart Data Download!')
     
-earthquake=Earthquake()
-earthquake.initfrom('./cache/earthquake.csv',1)
-GetDartData('43413',earthquake)
+#earthquake=Earthquake()
+#earthquake.initfrom('./cache/earthquake.csv',1)
+#GetDartData('43413',earthquake)

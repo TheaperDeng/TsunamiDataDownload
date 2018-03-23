@@ -14,15 +14,16 @@ def UpdateDartStation():
         data=data.decode('utf-8')
         Temp=data.split('dartstns = [')[1].split('];',1)[0].replace("'","")
         stations = [x.strip() for x in Temp.split(',')]
-        print(stations)
+        #print(stations)
 
     urlNOAAStationhead='http://www.ndbc.noaa.gov/station_page.php?station='
     longitude=[]
     latitude=[]
     waterdepth=[]
     for station in stations:
+        print(station,"is updating")
         urlNOAAStation=urlNOAAStationhead+station
-        print(urlNOAAStation)
+        #print(urlNOAAStation)
         with request.urlopen(urlNOAAStation) as f:
             data=f.read()
             data=data.decode('utf-8')
@@ -32,8 +33,8 @@ def UpdateDartStation():
             except IndexError as e:
                 Temp2='-1'
                 
-            print(Temp)
-            print(Temp2)
+            #print(Temp)
+            #print(Temp2)
             if re.match(r'(\d{1,3}.\d{3})N\s(\d{1,3}.\d{3})E',Temp):#use regex to match the string we get
                 m=re.match(r'(\d{1,3}.\d{3})N\s(\d{1,3}.\d{3})E',Temp)
                 latitude.append(m.group(1))
@@ -58,7 +59,7 @@ def UpdateDartStation():
                 longitude.append('-'+m.group(2))
                 waterdepth.append(Temp2)
                 continue
-
+            
     if os.path.exists('./cache'):#new cache folder for now and future
         pass
     else:
@@ -71,6 +72,6 @@ def UpdateDartStation():
         Temp=[station,longitude,latitude,waterdepth]
         writer.writerow(Temp)
     c.close()
-    print('Done!')
+    print('Dart Station update!')
 
-updateDartStation()
+#updateDartStation()
