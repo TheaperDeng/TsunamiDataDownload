@@ -9,6 +9,7 @@ def getdarturl(stationnum,earthquake):
     '''get the data form [stationnum]Dart and save it in a indentified csv file'''
     urlhead='http://www.ndbc.noaa.gov/station_page.php?station='
     url=urlhead+stationnum+'&type=0&startyear='+earthquake.date[0]+'&startmonth='+earthquake.date[1]+'&startday='+earthquake.date[2]+'&endyear='+earthquake.date[0]+'&endmonth='+earthquake.date[1]+'&endday='+earthquake.date[2]+'&submit=Submit'
+        
     return url
 
 
@@ -32,6 +33,7 @@ def GetDartData(stationnum,earthquake):
             except IndexError as e:
                 break
             Temp=Temp.split(earthquake.date[0],1)[1]
+            #print(Temp2)
             m=re.match(r'\s\d{2}\s\d{2}\s(\d{2})\s(\d{2})\s(\d{2})\s\d\s(\d{1,4}.\d{3})',Temp2)
             if m:
                 #print(m[1],m[2],m[3],m[4])
@@ -42,20 +44,18 @@ def GetDartData(stationnum,earthquake):
             else:
                 break
         #print(rela_time,height)
-        if os.path.exists('./cache'):#new cache folder for now and future
-            pass
-        else:
-            os.mkdir('./cache')
-        c=open("./cache/DartData_"+stationnum+".csv","w",newline='')#newline='' is for no empty line
+        c=open("./cache/DartData_"+stationnum+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+earthquake.time_zero[0]+earthquake.time_zero[1]+earthquake.time_zero[2]+".csv","w",newline='')#newline='' is for no empty line
         #print('Open correctly!')
         writer=csv.writer(c)#open the earthquake data cache file
         writer.writerow(['Relative Time','WaterDepth'])
         for rela_time,waterdepth in zip(rela_time,height):
+            if waterdepth=='9999.000':
+                continue
             Temp=[rela_time,waterdepth]
             writer.writerow(Temp)
         c.close()
         print(stationnum, 'Dart Data Download!')
     
-#earthquake=Earthquake()
-#earthquake.initfrom('./cache/earthquake.csv',1)
-#GetDartData('43413',earthquake)
+# earthquake=Earthquake()
+# earthquake.initfrom('./cache/earthquake.csv',1)
+# GetDartData('43413',earthquake)

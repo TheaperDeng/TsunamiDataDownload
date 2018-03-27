@@ -25,6 +25,17 @@ class Earthquake():
                 #print(self.time_zero)
             else:
                 pass
-
+    def printall(self,filename):
+        with open(filename) as f:
+            reader=csv.reader(f)
+            a=1
+            for row in reader:
+                m=re.match(r'(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})',row[0])
+                if m:
+                    print(a,':',"On",m[1],m[2],m[3],"at",m[4],m[5],m[6])
+                    a=a+1
+                else:
+                    pass
+        
 #earthquake=Earthquake()
 #earthquake.initfrom('./cache/earthquake.csv',1)            
