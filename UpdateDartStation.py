@@ -5,6 +5,7 @@ from urllib import request
 import re
 import os
 import csv
+import operator
 
 def UpdateDartStation():
     '''download a station list of Dart and some necessary stat'''
@@ -15,7 +16,15 @@ def UpdateDartStation():
         Temp=data.split('dartstns = [')[1].split('];',1)[0].replace("'","")
         stations = [x.strip() for x in Temp.split(',')]
         #print(stations)
-
+    with open("./cache/DartStationRecord.csv","r",encoding="utf-8")as f:
+        station_csv=csv.reader(f)
+        stationNum=[row[0] for row in station_csv]
+        stationNum.remove('StationNumber')
+        #print (stationNum)
+        f.close()
+        if operator.eq(stationNum,stations)==True:
+            print('No need to refresh Dart station!')
+            return
     urlNOAAStationhead='http://www.ndbc.noaa.gov/station_page.php?station='
     longitude=[]
     latitude=[]
