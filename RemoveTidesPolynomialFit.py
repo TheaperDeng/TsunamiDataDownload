@@ -17,6 +17,9 @@ def RemoveTidesPolynomialFit(Filename,earthquake,starttime=-2500,endtime=1200):
             h.append(float(row[1]))
         index1=0
         index2=0
+        if t[0]>0:
+            t.reverse()
+            h.reverse()
         for tsample in t:
             if tsample/60<starttime:
                 index1=index1+1
@@ -26,15 +29,28 @@ def RemoveTidesPolynomialFit(Filename,earthquake,starttime=-2500,endtime=1200):
         h=array(h[index1:index2])
         z1=polyfit(t,h,20)
         h=h-polyval(z1,t)
-        #print(t,h)
-        index1=0
-        index2=0
+        
+        ttemp=[]
+        htemp=[]
+        indexx=0
         for tsample in list(t):
             if tsample/60>0:
-                index1=index1+1
-        t=array(t[0:index1])
-        h=array(h[0:index1])
-        #print(t,h)
+                ttemp.append(tsample)
+                htemp.append(list(h)[indexx])
+            indexx=indexx+1
+        t=array(ttemp)
+        h=array(htemp)
+        
+        
+        # #print(t,h)
+        # index1=0
+        # index2=0
+        # for tsample in list(t):
+            # if tsample/60>0:
+                # index1=index1+1
+        # t=array(t[0:index1])
+        # h=array(h[0:index1])
+        # #print(t,h)
         figure()
 
         plot(t/60,h,linewidth=0.4)
@@ -48,7 +64,7 @@ def RemoveTidesPolynomialFit(Filename,earthquake,starttime=-2500,endtime=1200):
         else:
             os.mkdir(earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+earthquake.time_zero[0]+earthquake.time_zero[1]+earthquake.time_zero[2])
         filename='./'+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+earthquake.time_zero[0]+earthquake.time_zero[1]+earthquake.time_zero[2]+Filename.split("./cache")[1].split(earthquake.date[0])[0]+"PolynomialFit.png"
-        savefig(filename,dpi=800)
+        savefig(filename,dpi=600)
         c=open("./"+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+earthquake.time_zero[0]+earthquake.time_zero[1]+earthquake.time_zero[2]+"/"+Filename.split("./cache")[1].split(earthquake.date[0])[0]+"PolynomialFit.csv","w",newline='')#newline='' is for no empty line
         #print('Open correctly!')
         writer=csv.writer(c)#open the earthquake data cache file

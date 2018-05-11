@@ -4,18 +4,19 @@
 from urllib import request
 from earthquake import Earthquake 
 import re,os,csv
+from DateShift import DateShift
 
 def getdarturl(stationnum,earthquake):
     '''get the data form [stationnum]Dart and save it in a indentified csv file'''
     urlhead='http://www.ndbc.noaa.gov/station_page.php?station='
-    url=urlhead+stationnum+'&type=0&startyear='+earthquake.date[0]+'&startmonth='+earthquake.date[1]+'&startday='+earthquake.date[2]+'&endyear='+earthquake.date[0]+'&endmonth='+earthquake.date[1]+'&endday='+earthquake.date[2]+'&submit=Submit'
+    url=urlhead+stationnum+'&type=0&startyear='+str(DateShift(earthquake.date,-1)[0])+'&startmonth='+str(DateShift(earthquake.date,-1)[1])+'&startday='+str(DateShift(earthquake.date,-1)[2])+'&endyear='+str(DateShift(earthquake.date,1)[0])+'&endmonth='+str(DateShift(earthquake.date,1)[1])+'&endday='+str(DateShift(earthquake.date,1)[2])+'&submit=Submit'
         
     return url
 
 
 def GetDartData(stationnum,earthquake):
     url=getdarturl(stationnum,earthquake)
-    #print(url)
+    print(url)
     with request.urlopen(url) as f:
         data=f.read()
         #print('Data:',data.decode('utf-8'))
@@ -34,11 +35,17 @@ def GetDartData(stationnum,earthquake):
                 break
             Temp=Temp.split(earthquake.date[0],1)[1]
             #print(Temp2)
-            m=re.match(r'\s\d{2}\s\d{2}\s(\d{2})\s(\d{2})\s(\d{2})\s\d\s(\d{1,4}.\d{3})',Temp2)
+            m=re.match(r'\s\d{2}\s(\d{2})\s(\d{2})\s(\d{2})\s(\d{2})\s\d\s(\d{1,4}.\d{3})',Temp2)
             if m:
+                rela_time_temp=0
                 #print(m[1],m[2],m[3],m[4])
-                rela_time_temp=(int(m[1])-int(earthquake.time_zero[0]))*3600+(int(m[2])-int(earthquake.time_zero[1]))*60+(int(m[3])-int(earthquake.time_zero[2]))*1
-                height_temp=m[4]
+                # rela_time_temp=(int(m[1])-int(earthquake.time_zero[0]))*3600+(int(m[2])-int(earthquake.time_zero[1]))*60+(int(m[3])-int(earthquake.time_zero[2]))*1
+                if int(m[1])-5>int(earthquake.date[2]):
+                    rela_time_temp=-86400
+                if int(m[1])+5<int(earthquake.date[2]):
+                    rela_time_temp=86400
+                rela_time_temp=rela_time_temp+(int(m[1])-int(earthquake.date[2]))*86400+(int(m[2])-int(earthquake.time_zero[0]))*3600+(int(m[3])-int(earthquake.time_zero[1]))*60+(int(m[4])-int(earthquake.time_zero[2]))*1
+                height_temp=m[5]
                 rela_time.append(rela_time_temp)
                 height.append(height_temp)
             else:
@@ -57,5 +64,5 @@ def GetDartData(stationnum,earthquake):
         print(stationnum, 'Dart Data Download!')
     
 # earthquake=Earthquake()
-# earthquake.initfrom('./cache/earthquake.csv',1)
+# earthquake.initfrom('./cache/earthquake.csv',4)
 # GetDartData('43413',earthquake)

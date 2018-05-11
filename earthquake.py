@@ -19,7 +19,7 @@ class Earthquake():
             if m:
                 self.date=[m[1],m[2],m[3]]
                 self.magnitude=float(row[4])
-                self.depth=float(row[3])
+                self.depth=row[3]
                 self.epi=[float(row[2]),float(row[1])]
                 self.time_zero=[m[4],m[5],m[6]]
                 #print(self.time_zero)
