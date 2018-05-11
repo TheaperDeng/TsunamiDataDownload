@@ -4,7 +4,8 @@ A SJTU PRP project, which can download tsunami caused by earthquake data by a bu
 
 ##Version
 ###V 0.1 (2018.5.12)
-## Update Information(until 2018.04.01)
+
+## Update Information(until 2018.5.12)
 ### 2018.03.07 Deng
 Creat this project and upload:<br> 
 1. settings.py(for Input index)<br>

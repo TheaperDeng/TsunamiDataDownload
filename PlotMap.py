@@ -43,6 +43,6 @@ def PlotMap(earthquake,stationnum,Filename,iocstationname,iocFilename):
     filename='./'+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+earthquake.time_zero[0]+earthquake.time_zero[1]+earthquake.time_zero[2]+"/Map.png"
     plt.subplots_adjust(top=1,bottom=0,left=0,right=1,hspace=0,wspace=0)
     savefig(filename)
-earthquake=Earthquake()
-earthquake.initfrom('./cache/earthquake.csv',4)
-PlotMap(earthquake,['42409','43413','32489','32411'],'./cache/DartStationRecord.csv',['chia'],'./cache/iocStationRecord.csv')
+# earthquake=Earthquake()
+# earthquake.initfrom('./cache/earthquake.csv',4)
+# PlotMap(earthquake,['42409','43413','32489','32411'],'./cache/DartStationRecord.csv',['chia'],'./cache/iocStationRecord.csv')
