@@ -6,7 +6,8 @@ import csv
 from pylab import *
 from earthquake import Earthquake   
 import os
-def RemoveTidesPolynomialFit(Filename,earthquake,starttime=-2500,endtime=1200):
+from settings import Settings
+def RemoveTidesPolynomialFit(Filename,earthquake,Settings,starttime=-2500,endtime=1200):
     with open(Filename) as f:
         reader=csv.reader(f)
         next(reader)
@@ -27,14 +28,14 @@ def RemoveTidesPolynomialFit(Filename,earthquake,starttime=-2500,endtime=1200):
                 index2=index2+1
         t=array(t[index1:index2])
         h=array(h[index1:index2])
-        z1=polyfit(t,h,20)
+        z1=polyfit(t,h,Settings.Polynomiallevel)
         h=h-polyval(z1,t)
         
         ttemp=[]
         htemp=[]
         indexx=0
         for tsample in list(t):
-            if tsample/60>0:
+            if tsample/60>0 and tsample/60<Settings.Polynomiallastmin:
                 ttemp.append(tsample)
                 htemp.append(list(h)[indexx])
             indexx=indexx+1

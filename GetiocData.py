@@ -7,9 +7,9 @@ import csv
 import re
 from earthquake import Earthquake 
 from DateShift import DateShift
+from settings import Settings
 
-
-def GetiocData(stationnum,earthquake):
+def GetiocData(stationnum,earthquake,Settings):
     ioc='http://www.ioc-sealevelmonitoring.org/bgraph.php?code='+stationnum+'&period=3&endtime='+str(DateShift(earthquake.date,2)[0])+'-'+str(DateShift(earthquake.date,2)[1])+'-'+str(DateShift(earthquake.date,2)[2])
     header={'User-Agent': 'Mozilla/5.0'}
     page=request.urlopen(ioc)
@@ -40,7 +40,7 @@ def GetiocData(stationnum,earthquake):
                 radindex=index
             index=index+1
         break
-    if prsindex==0 and radindex==0:
+    if (prsindex==0 or Settings.iocprs==False) and (radindex==0 or Settings.iocrad==False):
         return -1
     for tr in tab.findAll('tr'):  
         index=0
@@ -57,14 +57,18 @@ def GetiocData(stationnum,earthquake):
                     relatime=relatime+(int(m[1])-int(earthquake.date[2]))*86400+(int(m[2])-int(earthquake.time_zero[0]))*3600+(int(m[3])-int(earthquake.time_zero[1]))*60+(int(m[4])-int(earthquake.time_zero[2]))*1
                 else:
                     relatime='Time(UTC)'
-            if (index==prsindex and prsindex!=0):
+            if (index==prsindex and prsindex!=0 and Settings.iocprs==True):
                 prs=td.getText()
-            if (index==radindex and radindex!=0):
+            if (index==radindex and radindex!=0 and Settings.iocrad==True and (Settings.iocprs==False or prsindex==0)):
                 prs=td.getText()
             index=index+1
-        csv_writer.writerow([ x for x in [relatime,prs]])
+        #print(relatime,prs)
+        try:
+            csv_writer.writerow([ x for x in [relatime,prs]])
+        except:
+            continue
     return 0
-    
+# Setting=Settings()
 # earthquake=Earthquake()
-# earthquake.initfrom('./cache/earthquake.csv',4)
-# GetiocData('chia',earthquake)
+# earthquake.initfrom('./cache/earthquake.csv',19)
+# GetiocData('orma',earthquake,Setting)

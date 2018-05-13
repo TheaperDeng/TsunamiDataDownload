@@ -15,7 +15,7 @@ def PlotMap(earthquake,stationnum,Filename,iocstationname,iocFilename):
     lat_0=earthquake.epi[1], lon_0=earthquake.epi[0],)
     m.etopo(scale=0.5, alpha=0.5)
     x, y = m(earthquake.epi[0], earthquake.epi[1])
-    print(x,y)
+    # print(x,y)
     z, w = m(earthquake.epi[0]+1.5, earthquake.epi[1])
     plt.plot(x, y, '*r', markersize=18)
     plt.text(z, w, earthquake.depth+'km', fontsize=14,color = "r")
@@ -25,7 +25,7 @@ def PlotMap(earthquake,stationnum,Filename,iocstationname,iocFilename):
             for row in reader:
                 if row[0]==number:
                         x, y = m(float(row[1]), float(row[2]))
-                        print(x,y)
+                        # print(x,y)
                         z, w = m(float(row[1])+1.5, float(row[2]))
                         plt.plot(x, y, '^k', markersize=9)
                         plt.text(z, w, str(number), fontsize=12)

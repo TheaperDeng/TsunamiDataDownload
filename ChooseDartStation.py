@@ -45,7 +45,7 @@ def ChooseiocStation(earthquake):
         station_num4=lines_station[ang_list.index(min(ang_list))].split(',')[0]
         ang_list[ang_list.index(min(ang_list))]=50
         station_num5=lines_station[ang_list.index(min(ang_list))].split(',')[0]
-        targetstation=[station_num1]
+        targetstation=[station_num1,station_num3,station_num5]
         # print(targetstation)
         return targetstation
         g.close()

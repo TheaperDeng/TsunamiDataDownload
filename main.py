@@ -16,38 +16,48 @@ from GenHTML import GenHTML
 import re
 
 def test():
-    Earthquake_Settings=Settings()
-    GetUsgsData(Earthquake_Settings)
-    UpdateDartStation()
+    Setting=Settings()
+    GetUsgsData(Setting)
+    if Setting.ifDartStationUpdate==True:
+        UpdateDartStation()
     earthquake=Earthquake()
     earthquake.printall('./cache/earthquake.csv')
     command=input('please input the number of earthquake you want to study>>> ')
     earthquake.initfrom('./cache/earthquake.csv',int(command))
-    tar_Dart_station=ChooseDartStation(earthquake)
-    tar_ioc_station=ChooseiocStation(earthquake)
+    if Setting.autoDartStationChoose==True:
+        tar_Dart_station=ChooseDartStation(earthquake)
+    else:
+        tar_Dart_station=Setting.manualDartStationList
+    if Setting.autoiocStationChoose==True:
+        tar_ioc_station=ChooseiocStation(earthquake)
+    else:
+        tar_Dart_station=Setting.manualiocStationList
     Dartstationnumvalid=[]
     iocstationnumvalid=[]
 
     for stationnum in tar_Dart_station:
         try:
             GetDartData(stationnum,earthquake)
-            filename="./cache/DartData_"+stationnum+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+earthquake.time_zero[0]+earthquake.time_zero[1]+earthquake.time_zero[2]+".csv"
-            RemoveTidesPolynomialFit(filename,earthquake)
-            
-            filename="./cache/DartData_"+stationnum+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+earthquake.time_zero[0]+earthquake.time_zero[1]+earthquake.time_zero[2]+".csv"
-            RemoveTidesFilter(filename,earthquake,2*60*60)
+            if Setting.ifPolynomial==True:
+                filename="./cache/DartData_"+stationnum+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+earthquake.time_zero[0]+earthquake.time_zero[1]+earthquake.time_zero[2]+".csv"
+                RemoveTidesPolynomialFit(filename,earthquake,Setting)
+            if Setting.ifFilter==True:
+                filename="./cache/DartData_"+stationnum+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+earthquake.time_zero[0]+earthquake.time_zero[1]+earthquake.time_zero[2]+".csv"
+                RemoveTidesFilter(filename,earthquake,Setting.Filtermaxperiod,Setting)
             Dartstationnumvalid.append(stationnum)
         except:
             print("Sorry,no data for station",stationnum, "or something wrong with the process step.")
             continue
     for stationnum in tar_ioc_station:
-        errorindex=GetiocData(stationnum,earthquake)
+        errorindex=GetiocData(stationnum,earthquake,Setting)
         if errorindex==-1:
             continue
-        filename="./cache/iocData_"+stationnum+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+earthquake.time_zero[0]+earthquake.time_zero[1]+earthquake.time_zero[2]+".csv"
-        RemoveTidesPolynomialFit(filename,earthquake)
-        filename="./cache/iocData_"+stationnum+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+earthquake.time_zero[0]+earthquake.time_zero[1]+earthquake.time_zero[2]+".csv"
-        RemoveTidesFilter(filename,earthquake,2*60*60)
+        if Setting.ifPolynomial==True:
+            filename="./cache/iocData_"+stationnum+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+earthquake.time_zero[0]+earthquake.time_zero[1]+earthquake.time_zero[2]+".csv"
+            RemoveTidesPolynomialFit(filename,earthquake,Setting)
+        if Setting.ifFilter==True:
+            filename="./cache/iocData_"+stationnum+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+earthquake.time_zero[0]+earthquake.time_zero[1]+earthquake.time_zero[2]+".csv"
+            RemoveTidesFilter(filename,earthquake,2*60*60,Setting)
         iocstationnumvalid.append(stationnum)
     print(Dartstationnumvalid,iocstationnumvalid)
     f1=open('./'+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+earthquake.time_zero[0]+earthquake.time_zero[1]+earthquake.time_zero[2]+'/map.html','w')

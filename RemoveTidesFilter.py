@@ -6,8 +6,9 @@ import csv
 from pylab import *
 from scipy import signal
 from earthquake import Earthquake
+from settings import Settings
 import os
-def RemoveTidesFilter(Filename,earthquake,maxperiod,starttime=-2500,endtime=1200):
+def RemoveTidesFilter(Filename,earthquake,maxperiod,Settings,starttime=-2500,endtime=1200):
     with open(Filename) as f:
         reader=csv.reader(f)
         next(reader)
@@ -60,12 +61,15 @@ def RemoveTidesFilter(Filename,earthquake,maxperiod,starttime=-2500,endtime=1200
         # print(b,a,h)
         hout = signal.filtfilt(b,a,h)
         index1=0
+        index2=0
         #print(t)
         for tsample in list(t):
             if tsample/60<0:
                 index1=index1+1
-        t=array(t[index1:size(t)-1])
-        hout=array(hout[index1:size(hout)-1])
+            if tsample/60<Settings.Filterlastmin:
+                index2=index2+1
+        t=array(t[index1:index2])
+        hout=array(hout[index1:index2])
         #print(t,hout) 
         figure()
         plot(t/60,hout,linewidth=0.4)
