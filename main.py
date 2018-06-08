@@ -24,12 +24,12 @@ def test():
     earthquake.printall('./cache/earthquake.csv')
     command=input('please input the number of earthquake you want to study>>> ')
     earthquake.initfrom('./cache/earthquake.csv',int(command))
-    if Setting.autoDartStationChoose==True:
-        tar_Dart_station=ChooseDartStation(earthquake)
+    if Setting.autoDartStationChoose>=0:
+        tar_Dart_station=ChooseDartStation(earthquake,Setting.autoDartStationChoose)
     else:
         tar_Dart_station=Setting.manualDartStationList
-    if Setting.autoiocStationChoose==True:
-        tar_ioc_station=ChooseiocStation(earthquake)
+    if Setting.autoiocStationChoose>=0:
+        tar_ioc_station=ChooseiocStation(earthquake,Setting.autoiocStationChoose)
     else:
         tar_Dart_station=Setting.manualiocStationList
     Dartstationnumvalid=[]
@@ -60,15 +60,12 @@ def test():
             RemoveTidesFilter(filename,earthquake,2*60*60,Setting)
         iocstationnumvalid.append(stationnum)
     print(Dartstationnumvalid,iocstationnumvalid)
-    f1=open('./'+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+earthquake.time_zero[0]+earthquake.time_zero[1]+earthquake.time_zero[2]+'/map.html','w')
+    f1=open('./'+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+'/map.html','w')
     f1.write(r'<html><body><img src="Map.png" border="0" usemap="#planetmap"alt="Planets" /><map name="planetmap" id="planetmap">')
     f1.close()
     PlotMap(earthquake,Dartstationnumvalid,'./cache/DartStationRecord.csv',iocstationnumvalid,'./cache/iocStationRecord.csv')
-    f1=open('./'+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+earthquake.time_zero[0]+earthquake.time_zero[1]+earthquake.time_zero[2]+'/map.html','a')
+    f1=open('./'+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+'/map.html','a')
     f1.write('</map></body></html>')
     f1.close()        
-def GUIMAIN():
-    while True:
-        command=input(">>>")
         
 test()

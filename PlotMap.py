@@ -9,9 +9,50 @@ from earthquake import Earthquake
 from GenHTML import GenHTML
 
 def PlotMap(earthquake,stationnum,Filename,iocstationname,iocFilename):
-    fig = plt.figure(figsize=(8, 8))
+
+    
+    maxx=-1000
+    minx=1000
+    maxy=-1000
+    miny=1000
+    
+    for station in stationnum:
+        with open("./cache/DartStationRecord.csv","r",encoding="utf-8")as f:
+            #print(maxy,maxx)
+            reader=csv.reader(f)
+            next(reader)
+            for row in reader:
+                if row[0]==station:
+                    #print('qwq')
+                    if maxx<=min(abs(float(row[1])-earthquake.epi[0]),360-abs(float(row[1])-earthquake.epi[0])):
+                        maxx=min(abs(float(row[1])-earthquake.epi[0]),360-abs(float(row[1])-earthquake.epi[0]))
+                    if maxy<=abs(float(row[2])-earthquake.epi[1]):
+                        maxy=abs(float(row[2])-earthquake.epi[1])
+            #print(maxy,maxx)
+                
+    for station in iocstationname:
+        with open("./cache/iocStationRecord.csv","r",encoding="utf-8")as f:
+            #print(maxy,maxx)
+            reader=csv.reader(f)
+            next(reader)
+            for row in reader:
+                if row[0]==station:
+                    #print('qwq')
+                    if maxx<=min(abs(float(row[1])-earthquake.epi[0]),360-abs(float(row[1])-earthquake.epi[0])):
+                        maxx=min(abs(float(row[1])-earthquake.epi[0]),360-abs(float(row[1])-earthquake.epi[0]))
+                    if maxy<=abs(float(row[2])-earthquake.epi[1]):
+                        maxy=abs(float(row[2])-earthquake.epi[1])
+            #print(maxy,maxx)
+    #print(maxx,minx,maxy,miny)
+    
+    k1=(max(maxy,maxx)*2+20)/10
+    if k1<=18:
+        k2=k1
+    else:
+        k2=17
+    fig = plt.figure(figsize=(k1,k2))
     m = Basemap(projection='lcc', resolution=None,
-    width=8E6, height=8E6,
+    width=k1*1E6, height=k2*1E6,
     lat_0=earthquake.epi[1], lon_0=earthquake.epi[0],)
     m.etopo(scale=0.5, alpha=0.5)
     x, y = m(earthquake.epi[0], earthquake.epi[1])
@@ -27,9 +68,9 @@ def PlotMap(earthquake,stationnum,Filename,iocstationname,iocFilename):
                         x, y = m(float(row[1]), float(row[2]))
                         # print(x,y)
                         z, w = m(float(row[1])+1.5, float(row[2]))
-                        plt.plot(x, y, '^k', markersize=9)
+                        plt.plot(x, y, '^m', markersize=9)
                         plt.text(z, w, str(number), fontsize=12)
-                        GenHTML('./'+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+earthquake.time_zero[0]+earthquake.time_zero[1]+earthquake.time_zero[2]+'/map.html',x/10000,800-y/10000,'DartData_'+number+'PolynomialFit')#DartData_32401PolynomialFit.png
+                        GenHTML('./'+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+'/map.html',x/10000,k2*100-y/10000,'DartData_'+number+'PolynomialFit')#DartData_32401PolynomialFit.png
     for name in iocstationname:
         with open(iocFilename) as f:
             reader=csv.reader(f)
@@ -37,12 +78,12 @@ def PlotMap(earthquake,stationnum,Filename,iocstationname,iocFilename):
                 if row[0]==name:
                         x, y = m(float(row[1]), float(row[2]))
                         z, w = m(float(row[1])+1.5, float(row[2]))
-                        plt.plot(x, y, 'ok', markersize=9)
+                        plt.plot(x, y, 'ob', markersize=9)
                         plt.text(z, w, str(name), fontsize=12)
-                        GenHTML('./'+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+earthquake.time_zero[0]+earthquake.time_zero[1]+earthquake.time_zero[2]+'/map.html',x/10000,800-y/10000,'iocData_'+name+'PolynomialFit')
-    filename='./'+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+earthquake.time_zero[0]+earthquake.time_zero[1]+earthquake.time_zero[2]+"/Map.png"
+                        GenHTML('./'+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+'/map.html',x/10000,k2*100-y/10000,'iocData_'+name+'PolynomialFit')
+    filename='./'+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+"/Map.png"
     plt.subplots_adjust(top=1,bottom=0,left=0,right=1,hspace=0,wspace=0)
     savefig(filename)
 # earthquake=Earthquake()
 # earthquake.initfrom('./cache/earthquake.csv',4)
-# PlotMap(earthquake,['42409','43413','32489','32411'],'./cache/DartStationRecord.csv',['chia'],'./cache/iocStationRecord.csv')
+# PlotMap(earthquake,['21413','43413', '32411', '42409', '32489', '32067', '32413', '46412', '44402', '32412'],'./cache/DartStationRecord.csv',['chia'],'./cache/iocStationRecord.csv')

@@ -31,16 +31,18 @@ def RemoveTidesPolynomialFit(Filename,earthquake,Settings,starttime=-2500,endtim
         z1=polyfit(t,h,Settings.Polynomiallevel)
         h=h-polyval(z1,t)
         
-        ttemp=[]
-        htemp=[]
-        indexx=0
-        for tsample in list(t):
-            if tsample/60>0 and tsample/60<Settings.Polynomiallastmin:
-                ttemp.append(tsample)
-                htemp.append(list(h)[indexx])
-            indexx=indexx+1
-        t=array(ttemp)
-        h=array(htemp)
+        
+
+        # ttemp=[]
+        # htemp=[]
+        # indexx=0
+        # for tsample in list(t):
+            # if tsample/60>0 and tsample/60<Settings.Polynomiallastmin:
+                # ttemp.append(tsample)
+                # htemp.append(list(h)[indexx])
+            # indexx=indexx+1
+        # t=array(ttemp)
+        # h=array(htemp)
         
         
         # #print(t,h)
@@ -54,19 +56,22 @@ def RemoveTidesPolynomialFit(Filename,earthquake,Settings,starttime=-2500,endtim
         # #print(t,h)
         figure()
 
-        plot(t/60,h,linewidth=0.4)
+        plot(t/60.0,h,linewidth=0.4)
         axes = plt.gca()
         axes.set_ylabel('Water Height[m]')
         axes.set_xlabel('Minutes after earthquake[min]')
         axes.set_title(Filename+'_PolynomialFit')
+        x1,x2,y1,y2 = plt.axis()
+        plt.axis((0,Settings.Filterlastmin,y1,y2))
         #show()
-        if os.path.exists(earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+earthquake.time_zero[0]+earthquake.time_zero[1]+earthquake.time_zero[2]):#new cache folder for now and future
+        if os.path.exists(earthquake.date[0]+earthquake.date[1]+earthquake.date[2]):#new cache folder for now and future
             pass
         else:
-            os.mkdir(earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+earthquake.time_zero[0]+earthquake.time_zero[1]+earthquake.time_zero[2])
-        filename='./'+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+earthquake.time_zero[0]+earthquake.time_zero[1]+earthquake.time_zero[2]+Filename.split("./cache")[1].split(earthquake.date[0])[0]+"PolynomialFit.png"
+            os.mkdir(earthquake.date[0]+earthquake.date[1]+earthquake.date[2])
+        filename='./'+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+Filename.split("./cache")[1].split(earthquake.date[0])[0]+"PolynomialFit.png"
         savefig(filename,dpi=600)
-        c=open("./"+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+earthquake.time_zero[0]+earthquake.time_zero[1]+earthquake.time_zero[2]+"/"+Filename.split("./cache")[1].split(earthquake.date[0])[0]+"PolynomialFit.csv","w",newline='')#newline='' is for no empty line
+        plt.close()
+        c=open("./"+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+"/"+Filename.split("./cache")[1].split(earthquake.date[0])[0]+"PolynomialFit.csv","w",newline='')#newline='' is for no empty line
         #print('Open correctly!')
         writer=csv.writer(c)#open the earthquake data cache file
         writer.writerow(['Relative Time','WaterDepth'])
