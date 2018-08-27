@@ -1,11 +1,11 @@
 # TsunamiDataDownload
 A SJTU PRP project, which can download tsunami caused by earthquake data by a button. <br>
-(./TsunamiDataDownload is for reference which code by python 2 or earlier than python 3.4)<br>
 
 ##Version
-###V 0.1 (2018.5.12)
+###V0.1 (2018.5.12)
+###V0.3 (2018.8.28)
 
-## Update Information(until 2018.5.12)
+## Update Information(until 2018.8.28)
 ### 2018.03.07 Deng
 Creat this project and upload:<br> 
 1. settings.py(for Input index)<br>
@@ -49,6 +49,10 @@ Fixed:(main.py/RemoveTidesPolynomialFit.py)<br>
 ### 2018.05.12 Deng
 All project has been pushed.<br>
 Version 0.1
+### 2018.08.28 Deng
+Huge amount of Bug Fixed<br>
+Version 0.3
 ## Future
 1. Fix bugs
+2. Manual edit
 

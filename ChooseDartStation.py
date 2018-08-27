@@ -15,6 +15,7 @@ def ChooseDartStation(earthquake,num_of_station):
             ang=math.acos(math.sin(float(earthquake.epi[1])/180*math.pi)*math.sin(float(lines_station[i].split(',')[2])/180*math.pi)+math.cos(float(earthquake.epi[1])/180*math.pi)*math.cos(float(lines_station[i].split(',')[2])/180*math.pi)*math.cos(float(earthquake.epi[0])/180*math.pi - float(lines_station[i].split(',')[1])/180*math.pi))
             #lines_station[i]=lines_station[i]+','+str(ang)
             ang_list.append(ang)
+            #print(ang)
         station_num1=lines_station[ang_list.index(min(ang_list))].split(',')[0]
         targetstation=[station_num1]
         for i in range(1,num_of_station):

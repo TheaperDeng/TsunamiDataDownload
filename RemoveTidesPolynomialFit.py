@@ -7,6 +7,7 @@ from pylab import *
 from earthquake import Earthquake   
 import os
 from settings import Settings
+
 def RemoveTidesPolynomialFit(Filename,earthquake,Settings,starttime=-2500,endtime=1200):
     with open(Filename) as f:
         reader=csv.reader(f)

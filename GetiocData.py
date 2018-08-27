@@ -1,6 +1,6 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
-
+from dateutil.parser import parse
 from urllib import request
 from bs4 import BeautifulSoup
 import csv
@@ -47,14 +47,17 @@ def GetiocData(stationnum,earthquake,Settings):
         for td in tr.findAll('td'): 
             if (index==timeindex):
                 time=td.getText()
-                m=re.match(r'\d{4}-\d{2}-(\d{2})\s(\d{2}):(\d{2}):(\d{2})',time)#2017-09-08 00:00:00
+                m=re.match(r'(\d{4}-\d{2}-\d{2})\s(\d{2}:\d{2}:\d{2})',time)#2017-09-08 00:00:00
                 if m:
-                    relatime=0
-                    if int(m[1])-5>int(earthquake.date[2]):
-                        relatime=-86400
-                    if int(m[1])+5<int(earthquake.date[2]):
-                        relatime=86400
-                    relatime=relatime+(int(m[1])-int(earthquake.date[2]))*86400+(int(m[2])-int(earthquake.time_zero[0]))*3600+(int(m[3])-int(earthquake.time_zero[1]))*60+(int(m[4])-int(earthquake.time_zero[2]))*1
+                    a = parse(m[1]+r"/"+m[2])# 2017-10-01/12:12:12
+                    b = parse(earthquake.date[0]+'-'+earthquake.date[1]+'-'+earthquake.date[2]+'/'+earthquake.time_zero[0]+':'+earthquake.time_zero[1]+':'+earthquake.time_zero[2])
+                    relatime=(a-b).total_seconds()
+                    # relatime=0
+                    # if int(m[1])-5>int(earthquake.date[2]):
+                        # relatime=-86400
+                    # if int(m[1])+5<int(earthquake.date[2]):
+                        # relatime=86400
+                    # relatime=relatime+(int(m[1])-int(earthquake.date[2]))*86400+(int(m[2])-int(earthquake.time_zero[0]))*3600+(int(m[3])-int(earthquake.time_zero[1]))*60+(int(m[4])-int(earthquake.time_zero[2]))*1
                 else:
                     relatime='Time(UTC)'
             if (index==prsindex and prsindex!=0 and Settings.iocprs==True):
