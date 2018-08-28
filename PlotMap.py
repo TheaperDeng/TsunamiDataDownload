@@ -1,5 +1,10 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
+
+'''Plot a map to virtrualize the location of stations and earthquake'''
+
+__author__ = 'Junwei Deng'
+
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap 
@@ -9,8 +14,10 @@ from earthquake import Earthquake
 from GenHTML import GenHTML
 
 def PlotMap(earthquake,stationnum,Filename,iocstationname,iocFilename):
-
-    
+    #You can use this function just like following:
+        # earthquake=Earthquake()
+        # earthquake.initfrom('./cache/earthquake.csv',24)
+        # PlotMap(earthquake,['21413','43413', '32411', '42409', '32489', '32067', '32413', '46412', '44402', '32412'],'./cache/DartStationRecord.csv',['chia'],'./cache/iocStationRecord.csv')
     maxx=-1000
     minx=1000
     maxy=-1000
@@ -102,6 +109,7 @@ def PlotMap(earthquake,stationnum,Filename,iocstationname,iocFilename):
     filename='./'+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+"/Map.png"
     plt.subplots_adjust(top=1,bottom=0,left=0,right=1,hspace=0,wspace=0)
     savefig(filename)
+    
 # earthquake=Earthquake()
 # earthquake.initfrom('./cache/earthquake.csv',24)
 # PlotMap(earthquake,['21413','43413', '32411', '42409', '32489', '32067', '32413', '46412', '44402', '32412'],'./cache/DartStationRecord.csv',['chia'],'./cache/iocStationRecord.csv')

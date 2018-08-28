@@ -1,10 +1,13 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 
+'''Setting class which can read config.cav to initialize the program'''
+
+__author__ = 'Junwei Deng'
+
 import csv
 
 class Settings():
-    '''Setting class is a Input of all that filter condition of earthquakes'''
     def __init__(self):
         self.starttime='2010-01-01'#start at starttime
         self.endtime='2018-05-10'#end at endtime

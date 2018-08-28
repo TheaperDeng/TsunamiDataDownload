@@ -1,6 +1,11 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 
+'''get USGS data for earthquake information'''
+
+__author__ = 'Junwei Deng'
+
+
 from settings import Settings
 import csv
 import requests
@@ -17,6 +22,10 @@ def GetUrlFromSettings(Earthquake_Settings):
 
 def GetUsgsData(Earthquake_Settings):
     '''Get earthquake data from USGS under filter and save as csv file'''
+    #you can use it as following
+        #Earthquake_Settings=Settings()
+        #GetUsgsData(Earthquake_Settings)
+    
     #Earthquake_Settings=Settings()
     url=GetUrlFromSettings(Earthquake_Settings)#get download url
     #print(url)

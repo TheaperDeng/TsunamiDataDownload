@@ -1,6 +1,10 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 
+'''HTML vircualization helper'''
+
+__author__ = 'Junwei Deng'
+
 def GenHTML(filename,x,y,name):
     c=open(filename,"a")#<area shape="circle"coords="440,455,14"href ="P6.png"target ="_blank" />
     c.write(r'<area shape="circle"coords="')#DartData_32401PolynomialFit.png

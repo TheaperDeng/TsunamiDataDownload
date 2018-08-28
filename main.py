@@ -1,6 +1,10 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 
+'''Main program'''
+
+__author__ = 'Junwei Deng'
+
 from earthquake import Earthquake
 from GetUsgsData import GetUsgsData
 from GetDartData import GetDartData

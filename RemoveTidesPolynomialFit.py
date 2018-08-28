@@ -1,6 +1,10 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 
+'''Remove Tides by PolynomialFit and save the plot'''
+
+__author__ = 'Junwei Deng'
+
 from numpy import *
 import csv
 from pylab import *
@@ -9,6 +13,10 @@ import os
 from settings import Settings
 
 def RemoveTidesPolynomialFit(Filename,earthquake,Settings,starttime=-2500,endtime=1200):
+    #You can use this function as following:
+        #earthquake=Earthquake()
+        #earthquake.initfrom('./cache/earthquake.csv',1)
+        #RemoveTidesPolynomialFit('./cache/DartData_52402.csv',earthquake)
     with open(Filename) as f:
         reader=csv.reader(f)
         next(reader)
@@ -32,29 +40,6 @@ def RemoveTidesPolynomialFit(Filename,earthquake,Settings,starttime=-2500,endtim
         z1=polyfit(t,h,Settings.Polynomiallevel)
         h=h-polyval(z1,t)
         
-        
-
-        # ttemp=[]
-        # htemp=[]
-        # indexx=0
-        # for tsample in list(t):
-            # if tsample/60>0 and tsample/60<Settings.Polynomiallastmin:
-                # ttemp.append(tsample)
-                # htemp.append(list(h)[indexx])
-            # indexx=indexx+1
-        # t=array(ttemp)
-        # h=array(htemp)
-        
-        
-        # #print(t,h)
-        # index1=0
-        # index2=0
-        # for tsample in list(t):
-            # if tsample/60>0:
-                # index1=index1+1
-        # t=array(t[0:index1])
-        # h=array(h[0:index1])
-        # #print(t,h)
         figure()
 
         plot(t/60.0,h,linewidth=0.4)

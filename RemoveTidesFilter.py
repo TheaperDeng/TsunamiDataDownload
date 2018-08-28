@@ -1,6 +1,10 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 
+'''Romove tides by filter'''
+
+__author__ = 'Junwei Deng'
+
 from numpy import *
 import csv
 from pylab import *
@@ -9,6 +13,10 @@ from earthquake import Earthquake
 from settings import Settings
 import os
 def RemoveTidesFilter(Filename,earthquake,maxperiod,Settings,starttime=-2500,endtime=1200):
+    #use it as follwoing:
+        # earthquake=Earthquake()
+        # earthquake.initfrom('./cache/earthquake.csv',4)
+        # RemoveTidesFilter('./cache/iocData_huat20170908044919.csv',earthquake,2*60*60)
     with open(Filename) as f:
         reader=csv.reader(f)
         next(reader)
@@ -68,9 +76,6 @@ def RemoveTidesFilter(Filename,earthquake,maxperiod,Settings,starttime=-2500,end
                 index1=index1+1
             if tsample/60<Settings.Filterlastmin:
                 index2=index2+1
-                
-        # t=array(t[index1:index2])
-        # hout=array(hout[index1:index2])
         
         #print(t,hout) 
         figure()

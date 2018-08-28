@@ -1,5 +1,10 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
+
+'''Get ioc station data and save it in specific file'''
+
+__author__ = 'Junwei Deng'
+
 from dateutil.parser import parse
 from urllib import request
 from bs4 import BeautifulSoup
@@ -10,6 +15,11 @@ from DateShift import DateShift
 from settings import Settings
 
 def GetiocData(stationnum,earthquake,Settings):
+    #You can directly use this function as following:
+        # Setting=Settings()
+        # earthquake=Earthquake()
+        # earthquake.initfrom('./cache/earthquake.csv',19)
+        # GetiocData('orma',earthquake,Setting)
     ioc='http://www.ioc-sealevelmonitoring.org/bgraph.php?code='+stationnum+'&period=3&endtime='+str(DateShift(earthquake.date,2)[0])+'-'+str(DateShift(earthquake.date,2)[1])+'-'+str(DateShift(earthquake.date,2)[2])
     header={'User-Agent': 'Mozilla/5.0'}
     page=request.urlopen(ioc)
@@ -52,12 +62,6 @@ def GetiocData(stationnum,earthquake,Settings):
                     a = parse(m[1]+r"/"+m[2])# 2017-10-01/12:12:12
                     b = parse(earthquake.date[0]+'-'+earthquake.date[1]+'-'+earthquake.date[2]+'/'+earthquake.time_zero[0]+':'+earthquake.time_zero[1]+':'+earthquake.time_zero[2])
                     relatime=(a-b).total_seconds()
-                    # relatime=0
-                    # if int(m[1])-5>int(earthquake.date[2]):
-                        # relatime=-86400
-                    # if int(m[1])+5<int(earthquake.date[2]):
-                        # relatime=86400
-                    # relatime=relatime+(int(m[1])-int(earthquake.date[2]))*86400+(int(m[2])-int(earthquake.time_zero[0]))*3600+(int(m[3])-int(earthquake.time_zero[1]))*60+(int(m[4])-int(earthquake.time_zero[2]))*1
                 else:
                     relatime='Time(UTC)'
             if (index==prsindex and prsindex!=0 and Settings.iocprs==True):

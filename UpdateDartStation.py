@@ -1,6 +1,10 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 
+'''Update Dart Station information'''
+
+__author__ = 'Junwei Deng'
+
 from urllib import request
 import re
 import os

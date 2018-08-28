@@ -1,5 +1,10 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
+
+'''dateshif helper'''
+
+__author__ = 'Junwei Deng & Runqing Zhou'
+
 import datetime
 
 def DateShift(date,shiftmode):

@@ -1,6 +1,10 @@
 #!/usr/bin/python3
 # -*- coding:utf-8 -*-
 
+'''Choose the first [num_of_statin] nearest to the earthquake location'''
+
+__author__ = 'Junwei Deng & Runqing Zhou'
+
 import csv
 import os
 import re
@@ -8,6 +12,10 @@ import math
 from earthquake import Earthquake
 
 def ChooseDartStation(earthquake,num_of_station):
+    #You can use the function just as following:
+        # earthquake=Earthquake()
+        # earthquake.initfrom('./cache/earthquake.csv',1)   
+        # ChooseDartStation(earthquake,100)
     with open("./cache/DartStationRecord.csv","r",encoding="utf-8")as g:
         lines_station=g.readlines()
         ang_list=[50]
@@ -24,15 +32,6 @@ def ChooseDartStation(earthquake,num_of_station):
             if (station_num=='StationNumber'):
                 break
             targetstation.append(station_num)
-        
-        # station_num2=lines_station[ang_list.index(min(ang_list))].split(',')[0]
-        # ang_list[ang_list.index(min(ang_list))]=50
-        # station_num3=lines_station[ang_list.index(min(ang_list))].split(',')[0]
-        # ang_list[ang_list.index(min(ang_list))]=50
-        # station_num4=lines_station[ang_list.index(min(ang_list))].split(',')[0]
-        # ang_list[ang_list.index(min(ang_list))]=50
-        # station_num5=lines_station[ang_list.index(min(ang_list))].split(',')[0]
-        #print(targetstation)
         return targetstation
         g.close()
         

@@ -1,5 +1,10 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
+
+'''Get Dart station data by an earthquake and save it in a indentified csv file'''
+
+__author__ = 'Junwei Deng'
+
 from dateutil.parser import parse
 from urllib import request
 from earthquake import Earthquake 
@@ -7,7 +12,7 @@ import re,os,csv
 from DateShift import DateShift
 
 def getdarturl(stationnum,earthquake):
-    '''get the data form [stationnum]Dart and save it in a indentified csv file'''
+    '''joint a url website address'''
     urlhead='http://www.ndbc.noaa.gov/station_page.php?station='
     url=urlhead+stationnum+'&type=0&startyear='+str(DateShift(earthquake.date,-1)[0])+'&startmonth='+str(DateShift(earthquake.date,-1)[1])+'&startday='+str(DateShift(earthquake.date,-1)[2])+'&endyear='+str(DateShift(earthquake.date,1)[0])+'&endmonth='+str(DateShift(earthquake.date,1)[1])+'&endday='+str(DateShift(earthquake.date,1)[2])+'&submit=Submit'
         
@@ -15,6 +20,11 @@ def getdarturl(stationnum,earthquake):
 
 
 def GetDartData(stationnum,earthquake):
+    '''Get Dart station data by an earthquake and save it in a indentified csv file'''
+    #You can directly use this function as following:
+        # earthquake=Earthquake()
+        # earthquake.initfrom('./cache/earthquake.csv',4)
+        # GetDartData('43413',earthquake)
     url=getdarturl(stationnum,earthquake)
     print(url)
     head = {}
@@ -25,7 +35,7 @@ def GetDartData(stationnum,earthquake):
         #print('Data:',data.decode('utf-8'))
         data=data.decode('utf-8')
         try:
-            Temp=data.split('#yr  mo dy hr mn  s -      m')[1].split('</textarea></label></pre>',1)[0]
+            Temp=data.split('#yr  mo dy hr mn  s -      m')[1].split('</textarea></label></pre>',1)[0]#find the front of the data
         except IndexError as e:
             return
         #print(Temp)
@@ -47,34 +57,14 @@ def GetDartData(stationnum,earthquake):
                 height_temp=m[6]
                 rela_time.append(relatime)
                 height.append(height_temp)
-                    # relatime=0
-                    # if int(m[1])-5>int(earthquake.date[2]):
-                        # relatime=-86400
-                    # if int(m[1])+5<int(earthquake.date[2]):
-                        # relatime=86400
-                    # relatime=relatime+(int(m[1])-int(earthquake.date[2]))*86400+(int(m[2])-int(earthquake.time_zero[0]))*3600+(int(m[3])-int(earthquake.time_zero[1]))*60+(int(m[4])-int(earthquake.time_zero[2]))*1
             else:
                 relatime='Time(UTC)'
-            # if m:
-                # rela_time_temp=0
-                # #print(m[1],m[2],m[3],m[4])
-                # # rela_time_temp=(int(m[1])-int(earthquake.time_zero[0]))*3600+(int(m[2])-int(earthquake.time_zero[1]))*60+(int(m[3])-int(earthquake.time_zero[2]))*1
-                # if int(m[1])-5>int(earthquake.date[2]):
-                    # rela_time_temp=-86400
-                # if int(m[1])+5<int(earthquake.date[2]):
-                    # rela_time_temp=86400
-                # rela_time_temp=rela_time_temp+(int(m[1])-int(earthquake.date[2]))*86400+(int(m[2])-int(earthquake.time_zero[0]))*3600+(int(m[3])-int(earthquake.time_zero[1]))*60+(int(m[4])-int(earthquake.time_zero[2]))*1
-                # height_temp=m[5]
-                # rela_time.append(rela_time_temp)
-                # height.append(height_temp)
-            # else:
-                # break
-        #print(rela_time,height)
+
         c=open("./cache/DartData_"+stationnum+earthquake.date[0]+earthquake.date[1]+earthquake.date[2]+earthquake.time_zero[0]+earthquake.time_zero[1]+earthquake.time_zero[2]+".csv","w",newline='')#newline='' is for no empty line
         #print('Open correctly!')
         writer=csv.writer(c)#open the earthquake data cache file
         writer.writerow(['Relative Time','WaterDepth'])
-        for rela_time,waterdepth in zip(rela_time,height):
+        for rela_time,waterdepth in zip(rela_time,height):#9999.000 error is basically cleaned here
             if waterdepth=='9999.000':
                 continue
             Temp=[rela_time,waterdepth]

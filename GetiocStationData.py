@@ -1,3 +1,10 @@
+#! /usr/bin/python
+# -*- coding: utf-8 -*-
+
+'''ioc Station data download, if you want to use this please contact the author'''
+
+__author__ = 'Junwei Deng'
+
 import json
 import requests
 from urllib import request
@@ -18,7 +25,7 @@ def GetiocStationData():
         with open('code.json') as f:
             ioc_raw_data=json.load(f)
             for ioc_raw_dict in ioc_raw_data:
-                if a>=2201:
+                if a>=1:
                     raw_data_station_web=request.urlopen('http://www.ioc-sealevelmonitoring.org/station.php?code='+ioc_raw_dict['ssc_id'].split('SSC-')[1]).read().decode('utf-8')
                     Temp=raw_data_station_web.split('data: {code: "')[1].split('"}')[0]
                     if Temp==ioc_raw_dict['ssc_id'].split('SSC-')[1]:

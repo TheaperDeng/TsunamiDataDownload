@@ -1,6 +1,10 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 
+'''Earthquake class which can save the basic information of an earthquake'''
+
+__author__ = 'Junwei Deng'
+
 import csv,re
 
 class Earthquake():
