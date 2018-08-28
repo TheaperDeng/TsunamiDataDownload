@@ -1,22 +1,30 @@
 # TsunamiDataDownload
 A SJTU PRP project, which can download tsunami caused by earthquake data by a button. <br>
 
-##Version
-###V0.1 (2018.5.12)
-###V0.3 (2018.8.28)
+## Version
 
-##Install
-###Windows
-####0.Make sure you have installed python3.x(3.6 is recommanded) and pip3 and some necessary library.
+### V0.1 (2018.5.12)
+
+### V0.3 (2018.8.28)
+
+## Install
+
+### Windows
+
+#### 0.Make sure you have installed python3.x(3.6 is recommanded) and pip3 and some necessary library.
+
 You can check it like this.<br>
- ![avatar](./image/version.jpg) 
+![avatar](./image/version.jpg)<br> 
 Install from https://www.python.org/<br>
 And make sure you have these package.(Version is just for recommendation)<br>
-![avatar](./image/13.jpg) 
+![avatar](./image/13.jpg) <br>
 You can follow the instructions bellow to install them.
-####**1.	Press Win+R together and enter cmd.**
- ![avatar](./image/1.png)
-####**2.	Install packages**
+
+#### 1.	Press Win+R together and enter cmd.
+
+ ![avatar](./image/1.png)<br>
+
+#### 2.	Install packages
 
 Enter pip install requests just as the following picture shows.
 
@@ -31,14 +39,15 @@ Similarly, enter pip install numpy.
 
 ![avatar](./image/5.png) 
 
-The installation of the next three ones are all similar.
+The installation of the next three ones are all similar.<br>
  ![avatar](./image/6.png) 
 
  ![avatar](./image/7.png) 
 
  ![avatar](./image/8.png) 
 
-####**3.	Install an important package called basemap**
+#### 3.	Install an important package called basemap
+
 Go to *http://www.lfd.uci.edu/~gohlke/pythonlibs/*.
 On the page, press CTRL +F and enter basemap and pyproj for quick positioning.  There are several versions, and you need to choose one of them. 32 and 64 on win refer to the Python version installed, and the Numbers behind cp refer to the Python version.<br>
 ![avatar](./image/9.png) 
@@ -47,12 +56,14 @@ Download one of them to a file. Next, you need change directory to the file and 
 For example, I download basemap-1.1.0-cp36-cp36m-win32.whl, and I put it in the directory E:\JI\prp\p1. So I need to enter the following things in cmd.
  ![avatar](./image/10.png) 
 
-####**4.	Install another two packages**
+#### 4.Install another two packages
+
 ![avatar](./image/11.png) 
 
 ![avatar](./image/12.png)
 
-###Note:
+### Note:
+
 Please shut down the anti-virus software(especially 360) when you run the program.
  
  
