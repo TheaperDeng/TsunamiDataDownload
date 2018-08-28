@@ -14,7 +14,7 @@ from DateShift import DateShift
 def getdarturl(stationnum,earthquake):
     '''joint a url website address'''
     urlhead='http://www.ndbc.noaa.gov/station_page.php?station='
-    url=urlhead+stationnum+'&type=0&startyear='+str(DateShift(earthquake.date,-1)[0])+'&startmonth='+str(DateShift(earthquake.date,-1)[1])+'&startday='+str(DateShift(earthquake.date,-1)[2])+'&endyear='+str(DateShift(earthquake.date,1)[0])+'&endmonth='+str(DateShift(earthquake.date,1)[1])+'&endday='+str(DateShift(earthquake.date,1)[2])+'&submit=Submit'
+    url=urlhead+stationnum+'&type=0&startyear='+str(DateShift(earthquake.date,-2)[0])+'&startmonth='+str(DateShift(earthquake.date,-2)[1])+'&startday='+str(DateShift(earthquake.date,-2)[2])+'&endyear='+str(DateShift(earthquake.date,2)[0])+'&endmonth='+str(DateShift(earthquake.date,2)[1])+'&endday='+str(DateShift(earthquake.date,2)[2])+'&submit=Submit'
         
     return url
 
