@@ -14,7 +14,7 @@ A SJTU PRP project, which can download tsunami caused by earthquake data by a bu
 #### 0.Make sure you have installed python3.x(3.6 is recommanded) and pip3 and some necessary library.
 
 You can check it like this.<br>
-![avatar](./image/version.jpg)<br> 
+![avatar](./image/version.JPG)<br> 
 Install from https://www.python.org/<br>
 And make sure you have these package.(Version is just for recommendation)<br>
 ![avatar](./image/13.jpg) <br>
@@ -50,8 +50,8 @@ The installation of the next three ones are all similar.<br>
 
 Go to *http://www.lfd.uci.edu/~gohlke/pythonlibs/*.
 On the page, press CTRL +F and enter basemap and pyproj for quick positioning.  There are several versions, and you need to choose one of them. 32 and 64 on win refer to the Python version installed, and the Numbers behind cp refer to the Python version.<br>
-![avatar](./image/9.png) 
-![avatar](./image/14.jpg) <br>
+![avatar](./image/9.png) <br>
+![avatar](./image/14.JPG) <br>
 Download one of them to a file. Next, you need change directory to the file and enter pip install xxx(xxx is the name of .whl you have downloaded)
 For example, I download basemap-1.1.0-cp36-cp36m-win32.whl, and I put it in the directory E:\JI\prp\p1. So I need to enter the following things in cmd.
  ![avatar](./image/10.png) 
