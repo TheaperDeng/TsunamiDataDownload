@@ -4,8 +4,11 @@ A SJTU PRP project, which can download tsunami caused by earthquake data by a bu
 ## Version
 
 ### V0.1 (2018.5.12)
-
+### V0.2 (Internal Version)
 ### V0.3 (2018.8.28)
+### V1.0beta (plan to be released on mid December)
+### V1.0 (plan to be released on 2019.1.1)
+Include bug fix, code restruction and a more user-friendly command line interface. So, users are recommanded to wait until then. Moreover, a library is on schedule with a fully written document so that tsunami researcher can tailor their own program easily.
 
 ## Install
 
@@ -64,8 +67,8 @@ For example, I download basemap-1.1.0-cp36-cp36m-win32.whl, and I put it in the 
 
 ### Note:
 
-Please shut down the anti-virus software(especially 360) when you run the program.
- 
+Please shut down the anti-virus software(especially 360) when you run the program.<br>
+![what](http://code.cdn.mozilla.net/for-firefox/badges/assets/I-Use-Firefox.png)
  
 
 
@@ -117,7 +120,3 @@ Version 0.1
 ### 2018.08.28 Deng
 Huge amount of Bug Fixed<br>
 Version 0.3
-## Future
-1. Fix bugs
-2. Manual edit
-
