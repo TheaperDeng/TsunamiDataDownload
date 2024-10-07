@@ -1,6 +1,12 @@
 # TsunamiDataDownload
 A SJTU PRP project, which can download tsunami caused by earthquake data by a button. <br>
 
+**The project is now archived.**
+
+Dowload the latest document and project source code through
+- Document: https://naoce.sjtu.edu.cn/upload/ueditor/file/20220707/1657157550317484.pdf
+- Source code: https://naoce.sjtu.edu.cn/upload/ueditor/file/20220707/1657157572618117.zip
+
 ## Version
 
 ### V0.1 (2018.5.12)
